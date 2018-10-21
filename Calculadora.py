@@ -8,9 +8,8 @@ class Mercado():
 #        frame.pack()
         self. a = "0" 
         self.soma = Celula()
-        
-        caixa_texto = Texto(raiz, self.a)
-    
+
+
         self.botao1 = Botao(raiz, "1", 3, 2, lambda : self.Numero(1))
         self.botao2 = Botao(raiz, "2", 3, 3, lambda : self.Numero(2))
         self.botao3 = Botao(raiz, "3", 3, 4, lambda : self.Numero(3))
@@ -41,44 +40,35 @@ class Mercado():
 
     def C(self):
         self.a = "0"
-        caixa_texto = Texto(raiz, self.a)        
 
     def Raiz_Quadrada(self):
         temporario = math.sqrt(float(self.a))
         self.a = str(temporario)
-        caixa_texto = Texto(raiz, self.a)
 
     def Seno(self):
         temporario = ((int(self.a))*2*math.pi)/(360)
         self.a = math.sin(temporario)
-        caixa_texto = Texto(raiz, self.a)
         
     def Cosseno(self):
         temporario = ((int(self.a))*2*math.pi)/(360)
         self.a = math.cos(temporario)
-        caixa_texto = Texto(raiz, self.a)
 
     def Tangente(self):
         temporario = ((int(self.a))*2*math.pi)/(360)
         self.a = math.tan(temporario)
-        caixa_texto = Texto(raiz, self.a)
 
     def Log10(self):
         temporario = math.log10(int(self.a))
         self.a = temporario
-        caixa_texto = Texto(raiz, self.a)
 
     def Pi(self):
         self.a = math.pi
-        caixa_texto = Texto(raiz, self.a)
         
     def Pow(self):
         self.a = math.pow(float(self.a), 2)
-        caixa_texto = Texto(raiz, self.a)
 
     def Percentual(self):
         self.a = (float(self.a)/100)
-        caixa_texto = Texto(raiz, self.a)
 
     def Igual(self):
         self.soma._numero_B = self.a
@@ -90,7 +80,6 @@ class Mercado():
             v = self.soma.multiplicacao()
         elif (self.soma._sinal == "divisao"):
             v = self.soma.divisao()
-        caixa_texto = Texto(raiz, v)
         self.a = v
 
     def Soma(self):
@@ -116,7 +105,6 @@ class Mercado():
 
     def Numero(self, numero):
         self.a += str(numero)
-        caixa_texto = Texto(raiz, self.a)
 
  
 
