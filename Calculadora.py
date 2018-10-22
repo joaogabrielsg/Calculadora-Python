@@ -1,6 +1,6 @@
 from tkinter import*
 import math
-
+#program used to make a supermarket project with tkinter
 class Mercado():
     def __init__(self, raiz):
         
