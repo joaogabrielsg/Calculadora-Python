@@ -1,122 +1,120 @@
 from tkinter import*
+import itertools
 import math
 
-class Mercado():
+class Calculadora():
     def __init__(self, raiz):
         
-#        frame = Frame(raiz)
-#        frame.pack()
-        self. a = "0" 
+        self.input_ = "0" 
         self.soma = Celula()
-        
-        caixa_texto = Texto(raiz, self.a)
-    
-        self.botao1 = Botao(raiz, "1", 3, 2, lambda : self.Numero(1))
-        self.botao2 = Botao(raiz, "2", 3, 3, lambda : self.Numero(2))
-        self.botao3 = Botao(raiz, "3", 3, 4, lambda : self.Numero(3))
-        self.botao4 = Botao(raiz, "4", 4, 2, lambda : self.Numero(4))
-        self.botao5 = Botao(raiz, "5", 4, 3, lambda : self.Numero(5))
-        self.botao6 = Botao(raiz, "6", 4, 4, lambda : self.Numero(6))
-        self.botao7 = Botao(raiz, "7", 5, 2, lambda : self.Numero(7))
-        self.botao8 = Botao(raiz, "8", 5, 3, lambda : self.Numero(8))
-        self.botao8 = Botao(raiz, "9", 5, 4, lambda : self.Numero(9))
-        self.botao8 = Botao(raiz, "0", 5, 5, lambda : self.Numero(0))
+        caixa_texto = Texto(raiz, self.input_) 
 
-        self.botao_soma = Botao(raiz, "+", 3, 5, self.Soma )
-        self.botao_subtracao = Botao(raiz, "-", 4, 5, self.Subtracao)
-        self.botao_subtracao = Botao(raiz, "*", 3, 6, self.Multiplicacao)
-        self.botao_subtracao = Botao(raiz, "/", 4, 6, self.Divisao)
-        self.botao_igual = Botao(raiz, "=", 5, 6, self.Igual)
+        def novo_botao(text, row, column, function):
+            return Botao(raiz, text, row, column, function)
+
+        def input_numero(numero):
+            return lambda : self.Numero(numero)
         
-        self.botao_raiz_quadrada = Botao(raiz, "raiz()", 2, 5, self.Raiz_Quadrada)
-        self.botao_raiz_quadrada = Botao(raiz, "c", 2, 6, self.C)
-        self.botao_raiz_quadrada = Botao(raiz, "sen()", 3, 1, self.Seno)
-        self.botao_raiz_quadrada = Botao(raiz, "cos()", 4, 1, self.Cosseno)
-        self.botao_raiz_quadrada = Botao(raiz, "tg()", 5, 1, self.Tangente)
-        self.botao_raiz_quadrada = Botao(raiz, "pi()", 2, 1, self.Pi)
-        self.botao_raiz_quadrada = Botao(raiz, "x²", 2, 2, self.Pow)
-        self.botao_raiz_quadrada = Botao(raiz, "log10()", 2, 3, self.Log10)
-        self.botao_raiz_quadrada = Botao(raiz, "%", 2, 4, self.Percentual)
+        buttons = {}
+
+        numbers_positions = list(itertools.product([3, 4, 5], [2, 3, 4]))
+        for numero in range(1, 10):
+            buttons.update({str(numero) : (*numbers_positions[numero-1], input_numero(numero))})
+        
+        buttons.update({"0": (5, 5, input_numero(0))})
+
+        buttons.update({
+            "pi()": (2, 1, self.Pi),
+            "x²": (2, 2, self.Pow),
+            "log10()": (2, 3, self.Log10),
+            "%": (2, 4, self.Percentual),
+            "raiz()": (2, 5, self.Raiz_Quadrada),
+            "clear": (2, 6, self.clear_),
+            "sen()": (3, 1, self.Seno),
+            "cos()": (4, 1, self.Cosseno),
+            "tg()": (5, 1, self.Tangente)
+        })
+        
+        for button in buttons.keys():
+            novo_botao(button, *buttons[button])
         
 
-    def C(self):
-        self.a = "0"
-        caixa_texto = Texto(raiz, self.a)        
+    def clear_(self):
+        self.input_ = "0"
+        caixa_texto = Texto(raiz, self.input_)        
 
     def Raiz_Quadrada(self):
-        temporario = math.sqrt(float(self.a))
-        self.a = str(temporario)
-        caixa_texto = Texto(raiz, self.a)
+        temporario = math.sqrt(float(self.input_))
+        self.input_ = str(temporario)
+        caixa_texto = Texto(raiz, self.input_)
 
     def Seno(self):
-        temporario = ((int(self.a))*2*math.pi)/(360)
-        self.a = math.sin(temporario)
-        caixa_texto = Texto(raiz, self.a)
+        temporario = ((int(self.input_))*2*math.pi)/(360)
+        self.input_ = math.sin(temporario)
+        caixa_texto = Texto(raiz, self.input_)
         
     def Cosseno(self):
-        temporario = ((int(self.a))*2*math.pi)/(360)
-        self.a = math.cos(temporario)
-        caixa_texto = Texto(raiz, self.a)
+        temporario = ((int(self.input_))*2*math.pi)/(360)
+        self.input_ = math.cos(temporario)
+        caixa_texto = Texto(raiz, self.input_)
 
     def Tangente(self):
-        temporario = ((int(self.a))*2*math.pi)/(360)
-        self.a = math.tan(temporario)
-        caixa_texto = Texto(raiz, self.a)
+        temporario = ((int(self.input_))*2*math.pi)/(360)
+        self.input_ = math.tan(temporario)
+        caixa_texto = Texto(raiz, self.input_)
 
     def Log10(self):
-        temporario = math.log10(int(self.a))
-        self.a = temporario
-        caixa_texto = Texto(raiz, self.a)
+        temporario = math.log10(int(self.input_))
+        self.input_ = temporario
+        caixa_texto = Texto(raiz, self.input_)
 
     def Pi(self):
-        self.a = math.pi
-        caixa_texto = Texto(raiz, self.a)
+        self.input_ = math.pi
+        caixa_texto = Texto(raiz, self.input_)
         
     def Pow(self):
-        self.a = math.pow(float(self.a), 2)
-        caixa_texto = Texto(raiz, self.a)
+        self.input_ = math.pow(float(self.input_), 2)
+        caixa_texto = Texto(raiz, self.input_)
 
     def Percentual(self):
-        self.a = (float(self.a)/100)
-        caixa_texto = Texto(raiz, self.a)
+        self.input_ = (float(self.input_)/100)
+        caixa_texto = Texto(raiz, self.input_)
 
     def Igual(self):
-        self.soma._numero_B = self.a
-        if (self.soma._sinal == "soma"):
-            v = self.soma.soma()
-        elif (self.soma._sinal == "subtracao"):
-            v = self.soma.subtracao()
-        elif (self.soma._sinal == "multiplicacao"):
-            v = self.soma.multiplicacao()
-        elif (self.soma._sinal == "divisao"):
-            v = self.soma.divisao()
+        self.soma._numero_B = self.input_
+        soma = self.soma
+        operacao = {"soma": soma.soma,
+                    "subtracao": soma.subtracao,
+                    "multiplicacao": soma.multiplicacao,
+                    "divisao": soma.divisao}
+        v = operacao()
         caixa_texto = Texto(raiz, v)
-        self.a = v
+        self.input_ = v
 
     def Soma(self):
-        self.soma._numero_A = self.a
+        self.soma._numero_A = self.input_
         self.soma._sinal = "soma"
-        self.a = "0"
+        self.input_ = "0"
 
     def Multiplicacao(self):
-        self.soma._numero_A = self.a
+        self.soma._numero_A = self.input_
         self.soma._sinal = "multiplicacao"
-        self.a = "0"
+        self.input_ = "0"
 
     def Divisao(self):
-        self.soma._numero_A = self.a
+        self.soma._numero_A = self.input_
         self.soma._sinal = "divisao"
-        self.a = "0"
+        self.input_ = "0"
         print(self.soma._numero_A )
 
     def Subtracao(self):
-        self.soma._numero_A = self.a
+        self.soma._numero_A = self.input_
         self.soma._sinal = "subtracao"
-        self.a = "0"
+        self.input_ = "0"
 
     def Numero(self, numero):
-        self.a += str(numero)
-        caixa_texto = Texto(raiz, self.a)
+        self.input_ += str(numero)
+        caixa_texto = Texto(raiz, self.input_)
 
  
 
@@ -157,5 +155,5 @@ class Texto():
 raiz = Tk()
 raiz.title("Calculadora")
 raiz.geometry("570x452")
-m = Mercado(raiz)
+m = Calculadora(raiz)
 raiz.mainloop()
